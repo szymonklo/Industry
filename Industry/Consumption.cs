@@ -6,14 +6,14 @@ namespace Industry
 {
     class Consumption : IConsumption
     {
-        private static readonly int defDemand = 1;
+        private static readonly int _defDemand = 1;
 
         public static int Demand (City city, Product product)
         {
-            switch (product.productGroup)
+            switch (product.Group)
             {
                 case 1:
-                    return defDemand * city.population;
+                    return _defDemand * city.Population;
                 default:
                     return 0;
             }

@@ -28,23 +28,28 @@ namespace Industry
 
             City krakow = new City("Krakow", 800000);
 
-            Product water = new Product(1, "water");
+            Product water = new Product(1, "water", 1);
 
             //Consumption consumption = new Consumption();
             //int demand = consumption.Demand(krakow, water);
 
-            Console.WriteLine($"City name: {krakow.cityName}, population: {krakow.population}\n" +
-                $"Product: {water.productName}, product group: {water.productGroup}\n" +
-                $"Daily demand: {krakow.cityDemand}\n");
+            Console.WriteLine($"City name: {krakow.Name}, population: {krakow.Population}\n" +
+                $"Product: {water.Name}, product group: {water.Group}\n" +
+                $"Daily demand: {krakow.CityDemand(water)}\n");
 
-            Factory waterSupply = new Factory("Water supply", 100000);
+            Factory waterSupply = new Factory("Water supply", 100000, water);
             int production = waterSupply.FactoryProduce(water);
 
-            Console.WriteLine($"Factory name: {waterSupply.factoryName}, daily production: {waterSupply.factoryDefProduction}\n" +
-                $"Product: {water.productName}, product group: {water.productGroup}\n" +
+            Console.WriteLine($"Factory name: {waterSupply.Name}, daily production: {waterSupply.DefProduction}\n" +
+                $"Product: {water.Name}, product group: {water.Group}\n" +
                 $"Daily production: {production}\n");
 
+            Shop market = new Shop(krakow, "Market");
+            Sale.Sell(krakow, market, waterSupply, water);
 
+            Console.WriteLine($"Shop name: {market.Name}, Storage: {market.ProductStorage}\n" +
+                $"Product: {water.Name}, demand: {Sale.Demand}, supply: {Sale.Supply}\n" +
+                $"Product price: {Sale.ProductPrice}, Sale Amount: {Sale.SaleAmount}, Income: {Sale.Income}\n");
 
         }
     }

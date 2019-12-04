@@ -7,20 +7,22 @@ namespace Industry
 {
     class Factory
     {
-        public int factoryDefProduction { get; set; }
-        public string factoryName { get; set; }
-        public int factoryProductsStorage {get; set;}
-        public Factory(string factoryName, int factoryDefProduction)
+        public int DefProduction { get; set; }
+        public string Name { get; set; }
+        public int ProductStorage {get; set;}
+        public Product ProductsType { get; set; }
+        public Factory(string factoryName, int factoryDefProduction, Product product)
         {
-            this.factoryName = factoryName;
-            this.factoryDefProduction = factoryDefProduction;
+            Name = factoryName;
+            DefProduction = factoryDefProduction;
+            ProductsType = product;
         }
         
-
         public int FactoryProduce(Product product)
         {
-            factoryProductsStorage += Production.Produce(this, product);
-            return factoryProductsStorage;
+            if (product == ProductsType)
+                ProductStorage += Production.Produce(this, product);
+            return ProductStorage;
         }
     }
 }

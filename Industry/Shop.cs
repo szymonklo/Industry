@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Industry;
 
 namespace Industry
 {
     class Shop
     {
-        public int demand { get; set; }
-        public int supply { get; set; }
+        public string Name { get; set; }
+        public City City { get; set; }
+        public int ProductStorage { get; set; }
 
-        public Shop(City city, Factory factory)
+        public Shop (City city, string name)
         {
-            this.demand = city.cityDemand;
-            this.supply = factory.factoryProductsStorage;
+            City = city;
+            Name = name;
         }
-        
     }
 }

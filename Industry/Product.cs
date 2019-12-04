@@ -6,13 +6,14 @@ namespace Industry
 {
     class Product
     {
-        public Product(byte group, string productName)
+        public Product(byte group, string productName, double defPrice)
         {
-            this.productGroup = group;
-            this.productName = productName;
+            Group = group;
+            Name = productName;
+            DefPrice = defPrice;
         }
-        public string productName { get; set; }
-        public byte productGroup { get; set; }
-        //public IEnumerable<string> productType = new List<string> { "Water" };
+        public string Name { get; set; }
+        public byte Group { get; set; }
+        public double DefPrice { get; set; }
     }
 }

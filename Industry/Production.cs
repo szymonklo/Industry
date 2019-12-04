@@ -6,14 +6,14 @@ namespace Industry
 {
     class Production
     {
-        private static readonly int defProduction = 1;
+        private static readonly int _defProduction = 1;
 
         public static int Produce (Factory factory, Product product)
         {
-            switch (product.productGroup)
+            switch (product.Group)
             {
                 case 1:
-                    return defProduction * factory.factoryDefProduction;
+                    return _defProduction * factory.DefProduction;
                 default:
                     return 0;
             }
