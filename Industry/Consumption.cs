@@ -8,12 +8,12 @@ namespace Industry
     {
         private static readonly int _defDemand = 1;
 
-        public static int Demand (City city, Product product)
+        public static int Demand (ProductInCity productInCity)
         {
-            switch (product.Group)
+            switch (productInCity.Group)
             {
                 case 1:
-                    return _defDemand * city.Population;
+                    return _defDemand * productInCity.City.Population;
                 default:
                     return 0;
             }

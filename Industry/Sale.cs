@@ -17,7 +17,7 @@ namespace Industry
 
         public static void Sell(City city, Shop shop, Factory factory, Product product)
         {
-            Demand = city.CityDemand(product);
+            //Demand = city.CityDemand(product);
             Transport.TransportProduct(shop, product, factory);
             Supply = shop.ProductStorage;
             ProductPrice = product.DefPrice * MarketPriceMod(product);

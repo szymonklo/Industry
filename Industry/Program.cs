@@ -35,7 +35,7 @@ namespace Industry
 
             Console.WriteLine($"City name: {krakow.Name}, population: {krakow.Population}\n" +
                 $"Product: {water.Name}, product group: {water.Group}\n" +
-                $"Daily demand: {krakow.CityDemand(water)}\n");
+                $"Daily demand: {""}\n");
 
             Factory waterSupply = new Factory("Water supply", 100000, water);
             int production = waterSupply.FactoryProduce(water);
@@ -51,6 +51,7 @@ namespace Industry
                 $"Product: {water.Name}, demand: {Sale.Demand}, supply: {Sale.Supply}\n" +
                 $"Product price: {Sale.ProductPrice}, Sale Amount: {Sale.SaleAmount}, Income: {Sale.Income}\n");
 
+            Round.Go();
         }
     }
 }

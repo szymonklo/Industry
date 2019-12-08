@@ -16,9 +16,9 @@ namespace Industry
             Population = population;
         }
 
-        public int CityDemand(Product product)
+        public int CityDemand(ProductInCity productInCity)
         {
-            return Consumption.Demand(this, product);
+            return Consumption.Demand(productInCity);
             //return cityDemand;
         }
     }
