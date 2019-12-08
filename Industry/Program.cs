@@ -19,6 +19,8 @@ namespace Industry
         //Time
         //Action
         //Map (terrain, region)
+
+//czy ProductInCity zawiera Product (konstruktor (Product)), czy jest jego podklasą (też może być konstruktor)???
 {
     class Program
     {
@@ -28,7 +30,7 @@ namespace Industry
 
             City krakow = new City("Krakow", 800000);
 
-            Product water = new Product(1, "water", 1);
+            Product water = new Product(1, 1, "water", 1);
 
             //Consumption consumption = new Consumption();
             //int demand = consumption.Demand(krakow, water);
@@ -38,11 +40,11 @@ namespace Industry
                 $"Daily demand: {""}\n");
 
             Factory waterSupply = new Factory("Water supply", 100000, water);
-            int production = waterSupply.FactoryProduce(water);
+            //int production = waterSupply.FactoryProduce(water);
 
             Console.WriteLine($"Factory name: {waterSupply.Name}, daily production: {waterSupply.DefProduction}\n" +
                 $"Product: {water.Name}, product group: {water.Group}\n" +
-                $"Daily production: {production}\n");
+                $"Daily production: \n");
 
             Shop market = new Shop(krakow, "Market");
             Sale.Sell(krakow, market, waterSupply, water);

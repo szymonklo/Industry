@@ -8,7 +8,7 @@ namespace Industry
     {
         public static void TransportProduct(Shop shop, Product product, Factory factory)
         {
-            if (product == factory.ProductsType)
+            if (product == factory.ProductType)
             {
                 shop.ProductStorage += factory.ProductStorage;
                 factory.ProductStorage = 0;

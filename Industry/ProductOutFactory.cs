@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Industry;
 
 namespace Industry
 {
-    class ProductInCity : Product
+    class ProductOutFactory : Product
     {
-        public ProductInCity(int id, byte group, string productName, double defPrice)
-            : base(id, group, productName, defPrice) { }
+        //private int _productionOutFactory;
+        public ProductOutFactory(int id, byte group, string productName, double defPrice, List<Product> Components)
+            : base(id, group, productName, defPrice, Components) { }
 
-        public ProductInCity(Product product)
-            : this(product.Id, product.Group, product.Name, product.DefPrice) { }
+        public ProductOutFactory(Product product)
+            : this(product.Id, product.Group, product.Name, product.DefPrice, product.Components) { }
 
         public Product Product
         {
@@ -18,14 +20,25 @@ namespace Industry
             {
                 return (Product)this;
             }
-
             set { }
         }
-        public City City { get; set; }
+        public Factory Factory { get; set; }
+        //public void ProductionOut()
+        //{
+        //    ProductionOutFactory = Factory.Produce(Product);
+        //}
+        public int ProductionOutFactory { get; set; }
+        //{
+        //    get { return _productionOutFactory; }
+        //    set
+        //    {
+        //        _productionOutFactory = Production.Produce(Factory, Product);
+        //    }
+        //}
         public int Demand { get; set; }
         public int Supply { get; set; }
         //public static double ProductPrice { get; set; }
-        public int SaleAmount { get; set; }
+        public int Amount { get; set; }
         public double Income { get; set; }
         
         //private static readonly double defMarketPriceMod = 1;
