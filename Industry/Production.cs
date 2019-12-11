@@ -9,15 +9,15 @@ namespace Industry
         private static readonly int _defProduction = 1;
         private static bool AreComponents { get; set; }
 
-        public static int Produce (Factory factory, Product product)
+        public static int Produce (Factory factory, ProductType product)
         {
             if (product.Components == null)
                 AreComponents = true;
             else
             {
-                foreach (Product component in product.Components)
+                foreach (ProductType component in product.Components)
                 {
-                    foreach (Product factoryComponent in factory.Components)
+                    foreach (ProductType factoryComponent in factory.Components)
                     {
                         if (component.Id == factoryComponent.Id)
                         {

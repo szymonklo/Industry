@@ -30,7 +30,7 @@ namespace Industry
 
             City krakow = new City("Krakow", 800000);
 
-            Product water = new Product(1, 1, "water", 1);
+            ProductType water = new ProductType(1, 1, "water", 1);
 
             //Consumption consumption = new Consumption();
             //int demand = consumption.Demand(krakow, water);

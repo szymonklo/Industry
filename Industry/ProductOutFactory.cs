@@ -5,20 +5,20 @@ using Industry;
 
 namespace Industry
 {
-    class ProductOutFactory : Product
+    class PProductOutFactory : ProductType
     {
         //private int _productionOutFactory;
-        public ProductOutFactory(int id, byte group, string productName, double defPrice, List<Product> Components)
+        public PProductOutFactory(int id, byte group, string productName, double defPrice, List<ProductType> Components)
             : base(id, group, productName, defPrice, Components) { }
 
-        public ProductOutFactory(Product product)
+        public PProductOutFactory(ProductType product)
             : this(product.Id, product.Group, product.Name, product.DefPrice, product.Components) { }
 
-        public Product Product
+        public ProductType Product
         {
             get
             {
-                return (Product)this;
+                return (ProductType)this;
             }
             set { }
         }

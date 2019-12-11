@@ -5,40 +5,50 @@ using Industry;
 
 namespace Industry
 {
-    class Factory
+    class Factory : Facility
     {
         public int DefProduction { get; set; }
-        public string Name { get; set; }
-        public int ProductStorage {get; set;}
-        public Product ProductType { get; set; }
-        public List<ProductFactory> Components { get; set; }
-        public List<ProductOutFactory> ProductsOutFactory { get; set; }
-        public ProductOutFactory ProductOutFactory { get; set; }
+        //public string Name { get; set; }
+        //public int ProductStorage {get; set;}
+        public ProductType ProductType { get; set; }
+        //public override List<Product> ProductsIn { get; set; }
+        //public override List<Product> ProductsOut { get; set; }
+        public Product ProductOutFactory { get; set; }
         private static readonly int _defProduction = 1;
-        //private static bool AreComponents { get; set; }
-        public Factory(string factoryName, int factoryDefProduction, Product product)
+
+        public Factory(string factoryName, int factoryDefProduction, ProductType productType)
         {
             Name = factoryName;
             DefProduction = factoryDefProduction;
-            ProductType = product;
-            ProductOutFactory = new ProductOutFactory(product);
+            ProductType = productType;
+            ProductOutFactory = new Product(productType);
+            ProductsOut.Add(ProductOutFactory);
+            //Components = ProductOutFactory.Components;
+            ProductsIn = new List<Product>();
+            if (productType.Components != null)
+            {
+                foreach (ProductType component in productType.Components)
+                {
+                    ProductsIn.Add(new Product(component));
+                }
+            }
         }
 
-        public void Produce(Product product)
+        public void Produce(ProductType productType)
         {
-            if (product.Id != ProductOutFactory.Id)
+            if (productType.Id != ProductOutFactory.Id)
             {
-                ProductOutFactory = ProductsOutFactory.Find(x => x.Id.Equals(product.Id));
+                ProductOutFactory = ProductsOut.Find(x => x.Id.Equals(productType.Id));
             }
             bool AreComponents, IsComponent = false;
 
-            if (product.Components != null)
+            if (productType.Components != null)
             {
-                foreach (Product component in product.Components)
+                foreach (ProductType component in productType.Components)
                 {
-                    foreach (Product factoryComponent in Components)
+                    foreach (Product factoryComponent in ProductsIn)
                     {
-                        if (component.Id == factoryComponent.Id)
+                        if ((component.Id == factoryComponent.Id) && (factoryComponent.Amount>ProductionAmount()))
                         {
                             IsComponent = true;
                             break;
@@ -57,32 +67,31 @@ namespace Industry
 
             if (AreComponents)
             {
-                if (product.Components != null)
+                if (productType.Components != null)
                 {
-                    foreach (Product component in product.Components)
+                    foreach (ProductType component in productType.Components)
                     {
-                        foreach (ProductFactory factoryComponent in Components)
+                        foreach (Product factoryComponent in ProductsIn)
                         {
                             if (component.Id == factoryComponent.Id)
+                            {
                                 factoryComponent.Amount -= ProductionAmount();
-                            Console.WriteLine(factoryComponent.Amount+factoryComponent.Name);
+                                Console.WriteLine("Processed: " + ProductionAmount() + ' ' + factoryComponent.Name + " (remained " + factoryComponent.Amount + ")");
+                            }
                         }
                     }
                 }
                 ProductOutFactory.Amount += ProductionAmount();
-                Console.WriteLine(ProductOutFactory.Amount+ ProductOutFactory.Name);
+                //foreach (Product product in ProductsOut)
+                //{
+
+                //}
+                Console.WriteLine("Produced: " + ProductOutFactory.Amount + ' ' + ProductOutFactory.Name);
             }
 
-
-
-            //{
-            //if (ProductsOutFactory.Find(x => x.Id.Equals(product.Id))!=null)
-            //{
-            //    ProductsOutFactory.Find(x => x.Id.Equals(product.Id)).Amount += Production.Produce(this, product);
-            //}
             int ProductionAmount()
             {
-                    switch (product.Group)
+                    switch (productType.Group)
                     {
                         case 1:
                             return _defProduction * DefProduction;
@@ -90,9 +99,6 @@ namespace Industry
                             return 0;
                     }
             }
-
-            //}
         }
-        
     }
 }

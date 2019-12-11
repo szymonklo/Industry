@@ -4,19 +4,19 @@ using System.Text;
 
 namespace Industry
 {
-    class ProductInCity : Product
+    class ProductInCity : ProductType
     {
         public ProductInCity(int id, byte group, string productName, double defPrice)
             : base(id, group, productName, defPrice) { }
 
-        public ProductInCity(Product product)
+        public ProductInCity(ProductType product)
             : this(product.Id, product.Group, product.Name, product.DefPrice) { }
 
-        public Product Product
+        public ProductType Product
         {
             get
             {
-                return (Product)this;
+                return (ProductType)this;
             }
 
             set { }

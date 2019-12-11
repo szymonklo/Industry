@@ -11,26 +11,33 @@ namespace Industry
         {
             
 
-            City krakow = new City("Krakow", 800000);
-            City warszawa = new City("Warszawa", 1000000);
+            ProductType water = new ProductType(1, 1, "water", 1);
+            ProductType bread = new ProductType(2, 1, "bread", 2, new List<ProductType> { water });
+            List<ProductType> ProductsTypes = new List<ProductType>
+            {
+                water,
+                bread
+            };
 
-            Product water = new Product(1, 1, "water", 1);
-            Product bread = new Product(2, 1, "bread", 2, new List<Product> { water });
+            List<Product> Products = new List<Product>();
+            foreach (ProductType productType in ProductsTypes)
+            {
+                Products.Add(new Product(productType));
+            }
 
-            Factory waterSupply = new Factory("Water supply", 100000, water);
-            Factory bakery = new Factory("Bakery", 60000, bread);
 
+            Factory waterSupply = new Factory("Water supply", 100, water);
+            Factory bakery = new Factory("Bakery", 60, bread);
+
+            City krakow = new City("Krakow", 800, Products);
+            City warszawa = new City("Warszawa", 1000, Products);
             //sposob 1
             List<City> Cities = new List<City>();
             Cities.Add(krakow);
             Cities.Add(warszawa);
 
             //sposob 2
-            List<Product> Products = new List<Product>
-            {
-                water,
-                bread
-            };
+            
 
             List<Factory> Factories = new List<Factory>
             {
@@ -38,62 +45,26 @@ namespace Industry
                 bakery
             };
 
+            bakery.ProductsIn[0].Amount = 200;
             //temp
-            bakery.Components = new List<ProductFactory> { new ProductFactory(water) };
 
-            List<List<ProductInCity>> ProductsInCities = new List<List<ProductInCity>>();
-            foreach (City city in Cities)
-            {
-                List<ProductInCity> ProductsInCity = new List<ProductInCity>();
-                //foreach (ProductInCity productInCity in ProductsInCity)
-                foreach (Product product in Products)
-                {
-                    ProductInCity productInCity = new ProductInCity(product);
-                    productInCity.City = city;
-                    productInCity.Demand = Consumption.Demand(productInCity);
-                    ProductsInCity.Add(productInCity);
-                    Console.WriteLine(productInCity.City.Name + ": " + productInCity.Name + ": " + productInCity.Demand);
-                    //Console.WriteLine(productInCity.Product.Name);
-                }
-                ProductsInCities.Add(ProductsInCity);
-            }
-
-            //List<List<ProductOutFactory>> ProductsOutFactories = new List<List<ProductOutFactory>>();
             foreach (Factory factory in Factories)
             {
-                
                 factory.Produce(factory.ProductOutFactory);
-                //ProductsOutFactory.Add(productOutFactory);
-                //Console.WriteLine(factory.Name + ": " + factory.ProductOutFactory.Name + ": +" + factory.ProductOutFactory.Amount);
-                
-                //ProductsOutFactories.Add(ProductsOutFactory);
             }
 
-            //List<List<ProductOutFactory>> ProductsOutFactories = new List<List<ProductOutFactory>>();
-            //foreach (Factory factory in Factories)
-            //{
-            //    //List<ProductOutFactory> ProductsOutFactory = new List<ProductOutFactory>();
-            //    foreach (Product product in factory.Products)
-            //    {
-            //        ProductOutFactory productOutFactory = new ProductOutFactory(product);
-            //        productOutFactory.Factory = factory;
-            //        //productOutFactory.Demand = Consumption.Demand(productOutFactory);
-            //        productOutFactory.ProductionOut();
-            //        ProductsOutFactory.Add(productOutFactory);
-            //        Console.WriteLine(productOutFactory.Factory.Name + ": " + productOutFactory.Name + ": " + productOutFactory.ProductionOutFactory);
-            //        //Console.WriteLine(productOutFactory.Product.Name);
-            //    }
-            //    ProductsOutFactories.Add(ProductsOutFactory);
-            //}
-            Console.WriteLine(1);
-            //foreach (City city in Cities)
-            //{
-            //    foreach (ProductInCity productInCity in ProductsInCity)
-            //    {
-            //        productInCity.Demand = Consumption.Demand(city, productInCity.Product);
-            //    }
-            //}
-            
+            foreach (Factory factory in Factories)
+            {
+                foreach (City city in Cities)
+                {
+                    TransportOrder transportOrder = new TransportOrder(factory, city, factory.ProductType, 10);
+                }
+            }
+
+                foreach (City city in Cities)
+            {
+                city.Consume();
+            }
         }
     }
 }

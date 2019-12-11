@@ -4,22 +4,48 @@ using System.Text;
 
 namespace Industry
 {
-    class City
+    class City : Facility
     {
         public int Population { get; set; }
-        public string Name { get; set; }
+        //public override string Name { get; set; }
         //public int cityDemand { get; set; }
+        //public override List<Product> ProductsIn { get; set; }
+        //public override List<Product> ProductsOut { get; set; }
 
-        public City(string cityName, int population)
+
+        public City(string name, int population, List<Product> ProductsOut = null)
         {
-            Name = cityName;
+            Name = name;
             Population = population;
+            ProductsOut = new List<Product>();
+            if (ProductsOut != null)
+            {
+                foreach (Product product in ProductsOut)
+                {
+                    //Product Product = new Product(product);
+                    product.Amount = Demand(product);
+                    ProductsOut.Add(product);
+
+                    Console.WriteLine(Name + ": " + product.Name + " " + product.Amount);
+                }
+            }
         }
 
-        public int CityDemand(ProductInCity productInCity)
+        public int Demand(Product product)
         {
-            return Consumption.Demand(productInCity);
+            return Consumption.Demand(product, this);
             //return cityDemand;
+        }
+
+        public void Consume ()
+        {
+            foreach (Product product in ProductsOut)
+            {
+                product.Amount = Demand(product);
+                Console.WriteLine(this.Name + ": " + product.Name + " "+ product.Amount);
+
+
+            }
         }
     }
 }

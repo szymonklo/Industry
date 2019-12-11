@@ -6,12 +6,12 @@ namespace Industry
 {
     class Transport
     {
-        public static void TransportProduct(Shop shop, Product product, Factory factory)
+        public static void TransportProduct(Shop shop, ProductType product, Factory factory)
         {
             if (product == factory.ProductType)
             {
-                shop.ProductStorage += factory.ProductStorage;
-                factory.ProductStorage = 0;
+                //shop.ProductStorage += factory.ProductStorage;
+                //factory.ProductStorage = 0;
             }
         }
     }

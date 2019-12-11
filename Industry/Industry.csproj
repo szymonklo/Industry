@@ -5,4 +5,11 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="ProductCity.cs" />
+    <Compile Remove="ProductInCity.cs" />
+    <Compile Remove="Production.cs" />
+    <Compile Remove="ProductOutFactory.cs" />
+  </ItemGroup>
+
 </Project>
