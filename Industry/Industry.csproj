@@ -6,10 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="IConsumption.cs" />
     <Compile Remove="ProductCity.cs" />
     <Compile Remove="ProductInCity.cs" />
     <Compile Remove="Production.cs" />
     <Compile Remove="ProductOutFactory.cs" />
+    <Compile Remove="Sale.cs" />
+    <Compile Remove="Shop.cs" />
+    <Compile Remove="Transport.cs" />
   </ItemGroup>
 
 </Project>

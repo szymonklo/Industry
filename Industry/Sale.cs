@@ -15,17 +15,17 @@ namespace Industry
 
         private static readonly double defMarketPriceMod = 1;
 
-        public static void Sell(City city, Shop shop, Factory factory, ProductType product)
+        public static void Sell(City city, Product product)
         {
-            //Demand = city.CityDemand(product);
-            Transport.TransportProduct(shop, product, factory);
+            Demand = product.Amount;
+            //Transport.TransportProduct(shop, product, factory);
             Supply = shop.ProductStorage;
             ProductPrice = product.DefPrice * MarketPriceMod(product);
             SaleAmount = Math.Min(Supply, Demand);
             shop.ProductStorage -= SaleAmount;
             Income = SaleAmount * ProductPrice;
         }
-        public static double MarketPriceMod(ProductType product)
+        public static double MarketPriceMod(Product product)
         {
             return 1 + defMarketPriceMod * (Demand - Supply) / Demand;
         }

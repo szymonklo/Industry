@@ -28,30 +28,30 @@ namespace Industry
         {
             Console.WriteLine("Day 0\n");
 
-            City krakow = new City("Krakow", 800000);
+            //City krakow = new City("Krakow", 800000);
 
-            ProductType water = new ProductType(1, 1, "water", 1);
+            //ProductType water = new ProductType(1, 1, "water", 1);
 
-            //Consumption consumption = new Consumption();
-            //int demand = consumption.Demand(krakow, water);
+            ////Consumption consumption = new Consumption();
+            ////int demand = consumption.Demand(krakow, water);
 
-            Console.WriteLine($"City name: {krakow.Name}, population: {krakow.Population}\n" +
-                $"Product: {water.Name}, product group: {water.Group}\n" +
-                $"Daily demand: {""}\n");
+            //Console.WriteLine($"City name: {krakow.Name}, population: {krakow.Population}\n" +
+            //    $"Product: {water.Name}, product group: {water.Group}\n" +
+            //    $"Daily demand: {""}\n");
 
-            Factory waterSupply = new Factory("Water supply", 100000, water);
-            //int production = waterSupply.FactoryProduce(water);
+            //Factory waterSupply = new Factory("Water supply", 100000, water);
+            ////int production = waterSupply.FactoryProduce(water);
 
-            Console.WriteLine($"Factory name: {waterSupply.Name}, daily production: {waterSupply.DefProduction}\n" +
-                $"Product: {water.Name}, product group: {water.Group}\n" +
-                $"Daily production: \n");
+            //Console.WriteLine($"Factory name: {waterSupply.Name}, daily production: {waterSupply.DefProduction}\n" +
+            //    $"Product: {water.Name}, product group: {water.Group}\n" +
+            //    $"Daily production: \n");
 
-            Shop market = new Shop(krakow, "Market");
-            Sale.Sell(krakow, market, waterSupply, water);
+            //Shop market = new Shop(krakow, "Market");
+            //Sale.Sell(krakow, market, waterSupply, water);
 
-            Console.WriteLine($"Shop name: {market.Name}, Storage: {market.ProductStorage}\n" +
-                $"Product: {water.Name}, demand: {Sale.Demand}, supply: {Sale.Supply}\n" +
-                $"Product price: {Sale.ProductPrice}, Sale Amount: {Sale.SaleAmount}, Income: {Sale.Income}\n");
+            //Console.WriteLine($"Shop name: {market.Name}, Storage: {market.ProductStorage}\n" +
+            //    $"Product: {water.Name}, demand: {Sale.Demand}, supply: {Sale.Supply}\n" +
+            //    $"Product price: {Sale.ProductPrice}, Sale Amount: {Sale.SaleAmount}, Income: {Sale.Income}\n");
 
             Round.Go();
         }

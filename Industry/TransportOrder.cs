@@ -49,9 +49,9 @@ namespace Industry
                 if (addNewProduct == true)
                     receiver.ProductsIn.Add(productToReceive);
 
-                Console.WriteLine("Transported " + capacity + " " + productType.Name + "\n" +
-                    "In origin (" + sender.Name + ") left "+ productToSend.Amount + "\n" +
-                    "In destination (" + receiver.Name + ") there are " + productToReceive.Amount + "\n");
+                Console.WriteLine($"Transported {capacity} {productType.Name}");
+                Console.WriteLine($"In {sender.Name} (origin) left {productToSend.Amount} {productType.Name}");
+                Console.WriteLine($"In {receiver.Name} (destination) there are {productToReceive.Amount} {productToReceive.Name}\n");
             }
         }
     }

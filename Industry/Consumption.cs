@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Industry
 {
-    class Consumption : IConsumption
+    class Consumption
     {
         private static readonly int _defDemand = 1;
 

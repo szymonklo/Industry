@@ -76,7 +76,7 @@ namespace Industry
                             if (component.Id == factoryComponent.Id)
                             {
                                 factoryComponent.Amount -= ProductionAmount();
-                                Console.WriteLine("Processed: " + ProductionAmount() + ' ' + factoryComponent.Name + " (remained " + factoryComponent.Amount + ")");
+                                Console.WriteLine($"{Name} used: {ProductionAmount()} {factoryComponent.Name} (Components remained: {factoryComponent.Amount} {factoryComponent.Name})");
                             }
                         }
                     }
@@ -86,7 +86,7 @@ namespace Industry
                 //{
 
                 //}
-                Console.WriteLine("Produced: " + ProductOutFactory.Amount + ' ' + ProductOutFactory.Name);
+                Console.WriteLine($"{Name} produced: {ProductionAmount()} {ProductOutFactory.Name} (On stock: {ProductOutFactory.Amount} {ProductOutFactory.Name})");
             }
 
             int ProductionAmount()

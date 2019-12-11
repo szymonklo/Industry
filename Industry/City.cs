@@ -13,20 +13,21 @@ namespace Industry
         //public override List<Product> ProductsOut { get; set; }
 
 
-        public City(string name, int population, List<Product> ProductsOut = null)
+        public City(string name, int population, List<Product> productsOut = null)
         {
             Name = name;
             Population = population;
-            ProductsOut = new List<Product>();
-            if (ProductsOut != null)
+            if (productsOut ==null)
+                ProductsOut = new List<Product>();
+            //if (ProductsOut != null)
             {
-                foreach (Product product in ProductsOut)
+                foreach (Product product in productsOut)
                 {
                     //Product Product = new Product(product);
                     product.Amount = Demand(product);
                     ProductsOut.Add(product);
 
-                    Console.WriteLine(Name + ": " + product.Name + " " + product.Amount);
+                    //Console.WriteLine(Name + ": " + product.Name + " " + product.Amount);
                 }
             }
         }
@@ -37,15 +38,46 @@ namespace Industry
             //return cityDemand;
         }
 
-        public void Consume ()
+        public void Demand()
         {
             foreach (Product product in ProductsOut)
             {
                 product.Amount = Demand(product);
-                Console.WriteLine(this.Name + ": " + product.Name + " "+ product.Amount);
-
-
+                Console.WriteLine($"{Name} demands {product.Amount} {product.Name}");
             }
+        }
+
+        public void Consume()
+        {
+            foreach (Product productOut in ProductsOut)
+            {
+                foreach (Product productIn in ProductsIn)
+                {
+                    if (productOut.Id == productIn.Id)
+                    {
+                        double ProductPrice = productOut.DefPrice * MarketPriceMod(productOut, productIn);
+                        int SaleAmount = Math.Min(productOut.Amount, productIn.Amount);
+                        
+                        productOut.Amount -= SaleAmount;
+                        productIn.Amount -= SaleAmount;
+
+                        double Income = SaleAmount * ProductPrice;
+
+                        Console.WriteLine($"{Name} consumed {SaleAmount} {productOut.Name}");
+                        Console.WriteLine($"{Name} still demands {productOut.Amount} {productOut.Name}");
+                        Console.WriteLine($"{Name} stil has {productIn.Amount} {productOut.Name}");
+
+                        Console.WriteLine($"{Name} paid {Income:c} ({ProductPrice:c} per 1 pc)\n");
+                    }
+                }
+            }
+        }
+
+        public static double MarketPriceMod(Product productOut, Product productIn)
+        {
+            double p = (productOut.Amount - productIn.Amount);
+            p/=(productOut.Amount);
+            return p+1;
         }
     }
 }
