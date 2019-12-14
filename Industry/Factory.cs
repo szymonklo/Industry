@@ -24,7 +24,7 @@ namespace Industry
             ProductOutFactory = new Product(productType);
             ProductsOut.Add(ProductOutFactory);
             //Components = ProductOutFactory.Components;
-            ProductsIn = new List<Product>();
+            ProductsIn = new ProductsKeyed();
             if (productType.Components != null)
             {
                 foreach (ProductType component in productType.Components)
@@ -38,7 +38,7 @@ namespace Industry
         {
             if (productType.Id != ProductOutFactory.Id)
             {
-                ProductOutFactory = ProductsOut.Find(x => x.Id.Equals(productType.Id));
+                ProductOutFactory = ProductsOut[productType.Id];
             }
             bool AreComponents, IsComponent = false;
 
@@ -46,13 +46,11 @@ namespace Industry
             {
                 foreach (ProductType component in productType.Components)
                 {
-                    foreach (Product factoryComponent in ProductsIn)
+                    Product factoryComponent = ProductsIn[component.Id];
+                    if (factoryComponent.Amount > ProductionAmount())
                     {
-                        if ((component.Id == factoryComponent.Id) && (factoryComponent.Amount>ProductionAmount()))
-                        {
-                            IsComponent = true;
-                            break;
-                        }
+                        IsComponent = true;
+                        break;
                     }
                     if (!IsComponent)
                         break;
@@ -71,14 +69,9 @@ namespace Industry
                 {
                     foreach (ProductType component in productType.Components)
                     {
-                        foreach (Product factoryComponent in ProductsIn)
-                        {
-                            if (component.Id == factoryComponent.Id)
-                            {
-                                factoryComponent.Amount -= ProductionAmount();
-                                Console.WriteLine($"{Name} used: {ProductionAmount()} {factoryComponent.Name} (Components remained: {factoryComponent.Amount} {factoryComponent.Name})");
-                            }
-                        }
+                        Product factoryComponent = ProductsIn[component.Id];
+                        factoryComponent.Amount -= ProductionAmount();
+                        Console.WriteLine($"{Name} used: {ProductionAmount()} {factoryComponent.Name} (Components remained: {factoryComponent.Amount} {factoryComponent.Name})");
                     }
                 }
                 ProductOutFactory.Amount += ProductionAmount();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Industry;
+using System.Collections.ObjectModel;
 
 namespace Industry
 {
@@ -17,18 +18,24 @@ namespace Industry
                 bread
             };
 
-            List<Product> Products = new List<Product>();
+            ProductsKeyed products = new ProductsKeyed();
+            //Dictionary<int, Product> ProductsD= new Dictionary<int, Product>();
+
             foreach (ProductType productType in ProductsTypes)
             {
-                Products.Add(new Product(productType));
+                products.Add(new Product(productType));
+                //ProductsD.Add(productType.Id, new Product(productType));
             }
 
 
             Factory waterSupply = new Factory("Water supply", 100, water);
             Factory bakery = new Factory("Bakery", 60, bread);
 
-            City krakow = new City("Krakow", 80, Products);
-            City warszawa = new City("Warszawa", 100, Products);
+            //City krakow = new City("Krakow", 80, ProductsD.Values);
+            City krakow = new City("Krakow", 80);//, ProductsTypes);
+            City warszawa = new City("Warszawa", 100);//, ProductsTypes);
+
+            //City warszawa = new City("Warszawa", 100, Products);
             //sposob 1
             List<City> Cities = new List<City>();
             Cities.Add(krakow);
@@ -43,8 +50,18 @@ namespace Industry
                 bakery
             };
 
-            bakery.ProductsIn[0].Amount = 200;
+            bakery.ProductsIn[1].Amount = 200;
             //temp
+
+            //Create cities demand
+            Console.WriteLine("**** Cities demand ****\n");
+            foreach (City city in Cities)
+            {
+                foreach (ProductType productType in ProductsTypes)
+                {
+                    city.ProductsOut.Add(new Product(productType));
+                }
+            }
 
             //Cities demand
             Console.WriteLine("**** Cities demand ****\n");

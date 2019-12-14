@@ -8,51 +8,21 @@ namespace Industry
     {
         public TransportOrder(Facility sender, Facility receiver, ProductType productType, int capacity)
         {
-            bool readyToSend = false;
-            bool readyToReceive = false;
-            bool addNewProduct = false;
-            Product productToSend = null;
-            Product productToReceive = null;
-
-            foreach (Product product in sender.ProductsOut)
+            if (sender.ProductsOut.Contains(productType.Id))
             {
-                if (product.Id == productType.Id)
+                sender.ProductsOut[productType.Id].Amount -= capacity;
+                if (receiver.ProductsIn.Contains(productType.Id))
+                    receiver.ProductsIn[productType.Id].Amount += capacity;
+                else
                 {
-                    readyToSend = true;
-                    productToSend = product;
+                    receiver.ProductsIn.Add(new Product(productType, capacity));
                 }
-            }
-            foreach (Product product in receiver.ProductsIn)
-            {
-                if (product.Id == productType.Id)
-                {
-                    readyToReceive = true;
-                    productToReceive = product;
-                }
-            }
-            if (readyToReceive == false)
-            {
-                {
-                    productToReceive = new Product(productType);
-                    readyToReceive = true;
-                    addNewProduct = true;
-                }
+                Console.WriteLine($"Transported {capacity} {productType.Name}");
+                Console.WriteLine($"In {sender.Name} (origin) left {sender.ProductsOut[productType.Id].Amount} {productType.Name}");
+                Console.WriteLine($"In {receiver.Name} (destination) there are {receiver.ProductsIn[productType.Id].Amount} {receiver.ProductsIn[productType.Id].Name}\n");
             }
             else
-                addNewProduct = false;
-
-            if (readyToSend && readyToReceive)
-            {
-                productToSend.Amount -= capacity;
-                productToReceive.Amount += capacity;
-
-                if (addNewProduct == true)
-                    receiver.ProductsIn.Add(productToReceive);
-
-                Console.WriteLine($"Transported {capacity} {productType.Name}");
-                Console.WriteLine($"In {sender.Name} (origin) left {productToSend.Amount} {productType.Name}");
-                Console.WriteLine($"In {receiver.Name} (destination) there are {productToReceive.Amount} {productToReceive.Name}\n");
-            }
+                Console.WriteLine("no product to send");
         }
     }
 }
