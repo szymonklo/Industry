@@ -50,7 +50,9 @@ namespace Industry
                 bakery
             };
 
-            bakery.ProductsIn[1].Amount = 200;
+            bakery.Products[1].AmountIn = 200;
+            bakery.Products[1].ProductPrice = 1.1;
+
             //temp
 
             //Create cities demand
@@ -59,12 +61,12 @@ namespace Industry
             {
                 foreach (ProductType productType in ProductsTypes)
                 {
-                    city.ProductsOut.Add(new Product(productType));
+                    city.Products.Add(new Product(productType));
                 }
             }
 
             //Cities demand
-            Console.WriteLine("**** Cities demand ****\n");
+            //Console.WriteLine("**** Cities demand ****\n");
             foreach (City city in Cities)
             {
                 city.Demand();
@@ -75,7 +77,7 @@ namespace Industry
             Console.WriteLine("**** Factories produce ****\n");
             foreach (Factory factory in Factories)
             {
-                factory.Produce(factory.ProductOutFactory);
+                factory.Produce(factory.Product);
             }
             Console.WriteLine("\n");
 
@@ -94,6 +96,7 @@ namespace Industry
             Console.WriteLine("**** Cities consume ****\n");
             foreach (City city in Cities)
             {
+                city.ProductWasSold += new Write().HandleProductSold;
                 city.Consume();
             }
         }

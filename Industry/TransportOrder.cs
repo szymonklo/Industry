@@ -6,20 +6,30 @@ namespace Industry
 {
     class TransportOrder
     {
+        public int TransportCost { get; set; } = 1;
         public TransportOrder(Facility sender, Facility receiver, ProductType productType, int capacity)
         {
-            if (sender.ProductsOut.Contains(productType.Id))
+            
+            if (sender.Products.Contains(productType.Id) && sender.Products[productType.Id].AmountOut>0)
             {
-                sender.ProductsOut[productType.Id].Amount -= capacity;
-                if (receiver.ProductsIn.Contains(productType.Id))
-                    receiver.ProductsIn[productType.Id].Amount += capacity;
+                sender.Products[productType.Id].AmountOut -= capacity;
+                Product productIn;
+                if (receiver.Products.Contains(productType.Id))
+                {
+                    productIn = receiver.Products[productType.Id];
+                }
                 else
                 {
-                    receiver.ProductsIn.Add(new Product(productType, capacity));
+                    productIn = new Product(productType, capacity);
+                    receiver.Products.Add(new Product(productType, capacity));
                 }
+                double productInCost = productIn.AmountIn * productIn.ProductCost + capacity * sender.Products[productType.Id].ProductCost + TransportCost;
+                productIn.AmountIn += capacity;
+                productIn.ProductCost = productInCost / productIn.AmountIn;
+
                 Console.WriteLine($"Transported {capacity} {productType.Name}");
-                Console.WriteLine($"In {sender.Name} (origin) left {sender.ProductsOut[productType.Id].Amount} {productType.Name}");
-                Console.WriteLine($"In {receiver.Name} (destination) there are {receiver.ProductsIn[productType.Id].Amount} {receiver.ProductsIn[productType.Id].Name}\n");
+                Console.WriteLine($"In {sender.Name} (origin) left {sender.Products[productType.Id].AmountOut} {productType.Name}");
+                Console.WriteLine($"In {receiver.Name} (destination) there are {receiver.Products[productType.Id].AmountIn} {receiver.Products[productType.Id].Name}\n");
             }
             else
                 Console.WriteLine("no product to send");

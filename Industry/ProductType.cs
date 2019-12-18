@@ -20,6 +20,8 @@ namespace Industry
         public string Name { get; set; }
         public byte Group { get; set; }
         public double DefPrice { get; set; }
+        public double DefCost { get; set; }
+
         public List<ProductType> Components { get; set; }
         //private static int _nextId = 1;
 

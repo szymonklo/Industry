@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 
 namespace Industry
 {
-   class ProductsKeyed : KeyedCollection<int, Product>
+    class ProductsKeyed : KeyedCollection<int, Product>
     {
         protected override int GetKeyForItem(Product item)
         {
@@ -13,3 +13,15 @@ namespace Industry
         }
     }
 }
+    /*
+    public abstract class TT<T>
+    { public abstract int GetKeyForItem { get; set; } }
+    class ProductsKeyedT <int, T> : KeyedCollection<int, T>
+    {
+        protected override int GetKeyForItem(T item)
+        {
+            return item.GetKeyForItem;
+        }
+    }
+}
+*/

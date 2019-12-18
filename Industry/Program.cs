@@ -28,6 +28,8 @@ namespace Industry
         {
             Console.WriteLine("Day 0\n");
 
+
+
             Round.Go();
         }
     }
